@@ -1,0 +1,54 @@
+{
+    
+"variables" : {
+    "esxi_host" : "10.4.44.102",
+    "esxi_datastore" : "",
+    "esxi_username" : "root",
+    "esxi_password" : "password",
+    "vm_name" : "alpine"
+},
+"builders" : [{
+    "type" : "vmware-iso",
+    "name" : "alpine",
+    "vm_name" : "alpine",
+    "iso_url" : "https://nl.alpinelinux.org/alpine/v3.5/releases/x86_64/alpine-standard-3.5.2-x86_64.iso",
+    "iso_checksum" : "c955c26431c877527024d94d1ba6495b87fddac186df16c404f7b15ea61f443b",
+    "iso_checksum_type" : "sha256",
+    "communicator" : "ssh",
+    "ssh_username" : "alpine",
+    "ssh_password" : "password",
+    "headless" : true,
+    "ssh_timeout" : "15m",
+    "guest_os_type" : "other", 
+    
+    "boot_wait" : "10s",
+     "boot_command": [
+      "root", "<enter>", "setup-alpine", "<enter>", "<enter>", "alpine", "<enter>", "<enter>", 
+"<enter>", "<enter>", "password", "<enter>", "password", "<enter>", "<enter>", "<enter>", "<wait5>", "1",  "<enter>", "<wait5>", "<enter>", "<enter>", "<wait10>", "<enter>","<wait10>", "<enter>", "<enter>", "<wait10>", "vi /etc/apk/repositories", "<enter>", "<esc>", "G", "i", "http://dl-cdn.alpinelinux.org/alpine/v3.5/community", "<esc>", ":wq", "<enter>", "apk update",  "<enter>", "<wait10>", "apk add docker", "<enter>", "<wait10>", "<wait10>", "<wait10>", "<wait10>", "apk add ansible", "<enter>", "<wait10>", "<wait10>", "<wait10>", "<wait>", "rc-update add docker boot", "<enter>"],
+    
+  
+
+    "shutdown_command": "echo 'shutdown -P now' > shutdown.sh; echo 'nullgrid'|sudo -S sh 'shutdown.sh'",
+
+    "remote_type": "esx5",
+    "remote_host": "{{user `esxi_host`}}",
+    "remote_datastore": "{{user `esxi_datastore`}}",
+    "remote_username": "{{user `esxi_username`}}",
+    "remote_password": "{{user `esxi_password`}}",
+    "keep_registered": true,
+
+    "vmx_data": {
+      "ethernet0.networkName": "VM Network"
+    }
+  }],
+
+
+"provisioners" : [{
+    "type" : "shell",
+    "inline" : [
+        "root"
+    ]
+}]
+
+
+}
