@@ -1,26 +1,20 @@
 {
     
-"variables" : {
-    "esxi_host" : "10.4.44.102",
-    "esxi_datastore" : "",
-    "esxi_username" : "root",
-    "esxi_password" : "password",
-    "vm_name" : "ubuntu"
-},
+
 "builders" : [{
     "type" : "vmware-iso",
-    "name" : "ubuntu",
-    "vm_name" : "ubuntu",
+    "name" : "{{user `vm_name`}}",
+    "vm_name" : "{{user `vm_name`}}",
     "iso_url" : "http://releases.ubuntu.com/16.04/ubuntu-16.04.2-server-amd64.iso",
     "iso_checksum" : "737ae7041212c628de5751d15c3016058b0e833fdc32e7420209b76ca3d0a535",
     "iso_checksum_type" : "sha256",
-    "ssh_username" : "ubuntu",
-    "ssh_password" : "password",
+    "ssh_username" : "{{user `ssh_username`}}",
+    "ssh_password" : "{{user `ssh_password`}}",
     "headless" : true,
     "ssh_timeout" : "15m",
     "guest_os_type" : "linux", 
     "floppy_files" : [
-        "preseed/ubuntu.cfg"
+        "paclabs_vm_tmpl/preseed/ubuntu.cfg"
     ],
     
     "boot_wait" : "30s",
