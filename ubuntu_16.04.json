@@ -40,7 +40,7 @@
       "initrd=/install/initrd.gz -- <enter>"
     ],
 
-    "shutdown_command": "echo 'shutdown -P now' > shutdown.sh; echo 'nullgrid'|sudo -S sh 'shutdown.sh'",
+    "shutdown_command": "echo 'shutdown -P now' > shutdown.sh; echo 'password'|sudo -S sh 'shutdown.sh'",
 
     "remote_type": "esx5",
     "remote_host": "{{user `esxi_host`}}",
@@ -60,13 +60,7 @@
     "script" : "script.sh",
     "execute_command" : "echo 'password' | sudo -S sh -c '{{ .Vars }} {{ .Path }}'"
     
-},
-{
-    "type" : "ansible-local",
-    "playbook_file" : "install_dhcp.yml",
-    "extra_agruments" : ["-i 'localhost' -c local install_dhcp.yml"]
-                     
-                 }
+}
                  
                  ]
 

@@ -1,7 +1,0 @@
-{
-    "esxi_host" : "10.4.44.102",
-    "esxi_datastore" : "primary",
-    "esxi_username" : "root",
-    "esxi_password" : "password"
-
-}
