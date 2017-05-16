@@ -5,23 +5,24 @@
     "esxi_datastore" : "",
     "esxi_username" : "root",
     "esxi_password" : "password",
-    "vm_name" : "alpine"
+    "vm_name" : "ubuntu"
 },
 "builders" : [{
     "type" : "vmware-iso",
-    "name" : "alpine",
-    "vm_name" : "alpine",
-    "iso_url" : "https://nl.alpinelinux.org/alpine/v3.5/releases/x86_64/alpine-standard-3.5.2-x86_64.iso",
-    "iso_checksum" : "c955c26431c877527024d94d1ba6495b87fddac186df16c404f7b15ea61f443b",
+    "name" : "ubuntu",
+    "vm_name" : "ubuntu",
+    "iso_url" : "http://releases.ubuntu.com/16.04/ubuntu-16.04.2-server-amd64.iso",
+    "iso_checksum" : "737ae7041212c628de5751d15c3016058b0e833fdc32e7420209b76ca3d0a535",
     "iso_checksum_type" : "sha256",
-    "ssh_username" : "nullgrid",
-    "ssh_password" : "nullgrid",
+    "ssh_username" : "ubuntu",
+    "ssh_password" : "password",
     "headless" : true,
     "ssh_timeout" : "15m",
     "guest_os_type" : "linux", 
     "floppy_files" : [
         "preseed/ubuntu.cfg"
     ],
+    
     "boot_wait" : "30s",
      "boot_command": [
       "<enter><wait><f6><esc><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
@@ -56,15 +57,18 @@
 
 "provisioners" : [{
     "type" : "shell",
-    "inline" : [
-        "sleep 30",
-        "sudo apt update",
-        "sudo apt install git",
-        "sudo apt install shh",
-        "sudo apt install curl", 
-        "sudo apt install docker.io"
-    ]
-}]
+    "script" : "script.sh",
+    "execute_command" : "echo 'password' | sudo -S sh -c '{{ .Vars }} {{ .Path }}'"
+    
+},
+{
+    "type" : "ansible-local",
+    "playbook_file" : "dhcpserver.yml",
+    "extra_agruments" : ["ansible-playbook -i "localhost," -c local install_dhcp.yml"]
+                     
+                 }
+                 
+                 ]
 
 
 }
