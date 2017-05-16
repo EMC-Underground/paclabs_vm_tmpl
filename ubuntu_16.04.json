@@ -63,8 +63,8 @@
 },
 {
     "type" : "ansible-local",
-    "playbook_file" : "dhcpserver.yml",
-    "extra_agruments" : ["ansible-playbook -i "localhost," -c local install_dhcp.yml"]
+    "playbook_file" : "install_dhcp.yml",
+    "extra_agruments" : ["-i 'localhost' -c local install_dhcp.yml"]
                      
                  }
                  
