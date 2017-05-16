@@ -57,7 +57,7 @@
 
 "provisioners" : [{
     "type" : "shell",
-    "script" : "script.sh",
+    "script" : "../script.sh",
     "execute_command" : "echo 'password' | sudo -S sh -c '{{ .Vars }} {{ .Path }}'"
     
 }
