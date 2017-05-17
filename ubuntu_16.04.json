@@ -12,7 +12,7 @@
     "ssh_password" : "{{user `ssh_password`}}",
     "headless" : true,
     "ssh_timeout" : "15m",
-    "guest_os_type" : "linux", 
+    "guest_os_type" : "Ubuntu_64", 
     "floppy_files" : [
         "paclabs_vm_tmpl/preseed/ubuntu.cfg"
     ],
