@@ -22,7 +22,7 @@
     "ssh_timeout" : "15m",
     "guest_os_type" : "linux", 
     "floppy_files" : [
-        "preseed/ubuntu.cfg"
+        "./paclabs_vm_tmpl/preseed/ubuntu.cfg"
     ],
     
     "boot_wait" : "30s",
@@ -59,7 +59,7 @@
 
 "provisioners" : [{
     "type" : "shell",
-    "script" : "script.sh",
+    "script" : "../script.sh",
     "execute_command" : "echo 'password' | sudo -S sh -c '{{ .Vars }} {{ .Path }}'"
     
 }
