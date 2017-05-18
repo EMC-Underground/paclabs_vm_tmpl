@@ -1,5 +1,13 @@
 {
-    
+"variables" : {
+    "esxi_host" : "10.4.44.102",
+    "esxi_datastore" : "",
+    "esxi_username" : "root",
+    "esxi_password" : "password",
+    "vm_name" : "ubuntu",
+    "ssh_username" : "ubuntu",
+    "ssh_password" : "password"
+},
 
 "builders" : [{
     "type" : "vmware-iso",
@@ -12,9 +20,9 @@
     "ssh_password" : "{{user `ssh_password`}}",
     "headless" : true,
     "ssh_timeout" : "15m",
-    "guest_os_type" : "Ubuntu_64", 
+    "guest_os_type" : "linux", 
     "floppy_files" : [
-        "paclabs_vm_tmpl/preseed/ubuntu.cfg"
+        "preseed/ubuntu.cfg"
     ],
     
     "boot_wait" : "30s",
