@@ -1,14 +1,4 @@
 {
-"variables" : {
-    "esxi_host" : "10.4.44.102",
-    "esxi_datastore" : "",
-    "esxi_username" : "root",
-    "esxi_password" : "password",
-    "vm_name" : "ubuntu",
-    "ssh_username" : "ubuntu",
-    "ssh_password" : "password"
-},
-
 "builders" : [{
     "type" : "vmware-iso",
     "name" : "{{user `vm_name`}}",
@@ -52,7 +42,7 @@
     "keep_registered": true,
 
     "vmx_data": {
-      "ethernet0.networkName": "VM Network"
+      "ethernet0.networkName": "{{user `esxi_network`}}"
     }
   }],
 
