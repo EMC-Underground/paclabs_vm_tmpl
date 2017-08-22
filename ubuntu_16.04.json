@@ -3,8 +3,8 @@
     "type" : "vmware-iso",
     "name" : "{{user `vm_name`}}",
     "vm_name" : "{{user `vm_name`}}",
-    "iso_url" : "http://releases.ubuntu.com/16.04/ubuntu-16.04.2-server-amd64.iso",
-    "iso_checksum" : "737ae7041212c628de5751d15c3016058b0e833fdc32e7420209b76ca3d0a535",
+    "iso_url" : "http://releases.ubuntu.com/16.04/ubuntu-16.04.3-server-amd64.iso",
+    "iso_checksum" : "a06cd926f5855d4f21fb4bc9978a35312f815fbda0d0ef7fdc846861f4fc4600",
     "iso_checksum_type" : "sha256",
     "ssh_username" : "{{user `ssh_username`}}",
     "ssh_password" : "{{user `ssh_password`}}",
@@ -15,7 +15,7 @@
         "./preseed/ubuntu.cfg"
     ],
     
-    "boot_wait" : "30s",
+    "boot_wait" : "10s",
      "boot_command": [
       "<enter><wait><f6><esc><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
       "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
@@ -32,25 +32,25 @@
       "initrd=/install/initrd.gz -- <enter>"
     ],
 
-    "shutdown_command": "echo 'shutdown -P now' > shutdown.sh; echo 'password'|sudo -S sh 'shutdown.sh'"
+    "shutdown_command": "echo 'shutdown -P now' > shutdown.sh; echo 'Password#1'|sudo -S sh 'shutdown.sh'"
 
   }],
 
 
 "post-processors" : [{
               "type": "vsphere",
-              "host": "10.4.44.11",
-              "username": "administrator@pac.lab",
+              "host": "192.168.0.35",
+              "username": "administrator@vsphere.local",
               "password": "Password#1",
               "datacenter": "Datacenter",
               "cluster": "cluster",
-              "resource_pool": " ",
-              "datastore": "datastore1",
+              "datastore": "ScaleIO",
               "vm_folder": "/",
               "vm_name": "UbuntuTmpl",
               "vm_network": "VM Network",
               "insecure" : "true",
-              "disk_mode" : "thin"
+              "disk_mode" : "thin",
+              "overwrite" : true
 }]
 
 

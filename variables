@@ -1,12 +1,12 @@
 {
-    "esxi_host" : "10.4.44.11",
-    "esxi_datastore" : "datastore1",
-    "esxi_username" : "administrator@pac.lab",
+    "esxi_host" : "192.168.0.35",
+    "esxi_datastore" : "ScaleIO",
+    "esxi_username" : "administrator@vsphere.local",
     "esxi_password" : "Password#1",
     "esxi_network" : "VM Network",
     "esxi_cluster" : "cluster",
     "esxi_datacenter" : "Datacenter",
-    "vm_name" : "ubuntu-16-04-02",
+    "vm_name" : "UbuntuTmpl",
     "ssh_username" : "ubuntu",
-    "ssh_password" : "password"
+    "ssh_password" : "Password#1"
 }
