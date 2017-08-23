@@ -8,8 +8,8 @@
     "iso_checksum_type" : "sha256",
     "ssh_username" : "{{user `ssh_username`}}",
     "ssh_password" : "{{user `ssh_password`}}",
-    "headless" : false,
-    "ssh_timeout" : "10m",
+    "headless" : true,
+    "ssh_timeout" : "15m",
     "guest_os_type" : "ubuntu-64", 
     "floppy_files" : [
         "./preseed/ubuntu.cfg"
@@ -31,11 +31,53 @@
       "grub-installer/bootdev=/dev/sda ",
       "initrd=/install/initrd.gz -- <enter>"
     ],
+    "vmx_data_post": {
+      "ethernet0.virtualDev": "vmxnet3",
+      "virtualhw.version" : "11"
+    },
+    "shutdown_command": "echo 'shutdown -P now' > shutdown.sh; echo 'Password#1'|sudo -S sh 'shutdown.sh'"
 
+  },
+  {
+    "type" : "virtualbox-iso",
+    "vm_name" : "{{user `vm_name`}}",
+    "iso_url" : "http://releases.ubuntu.com/16.04/ubuntu-16.04.3-server-amd64.iso",
+    "iso_checksum" : "a06cd926f5855d4f21fb4bc9978a35312f815fbda0d0ef7fdc846861f4fc4600",
+    "iso_checksum_type" : "sha256",
+    "ssh_username" : "{{user `ssh_username`}}",
+    "ssh_password" : "{{user `ssh_password`}}",
+    "headless" : true,
+    "ssh_timeout" : "15m",
+    "guest_os_type" : "ubuntu_64", 
+    "floppy_files" : [
+        "./preseed/ubuntu.cfg"
+    ],
+    
+    "boot_wait" : "10s",
+     "boot_command": [
+      "<enter><wait><f6><esc><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+      "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+      "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+      "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+      "/install/vmlinuz noapic ",
+      "preseed/file=/floppy/ubuntu.cfg ",
+      "debian-installer=en_US auto locale=en_US kbd-chooser/method=us ",
+      "hostname={{ .Name }} ",
+      "fb=false debconf/frontend=noninteractive ",
+      "keyboard-configuration/modelcode=SKIP keyboard-configuration/layout=USA ",
+      "keyboard-configuration/variant=USA console-setup/ask_detect=false ",
+      "grub-installer/bootdev=/dev/sda ",
+      "initrd=/install/initrd.gz -- <enter>"
+    ],
     "shutdown_command": "echo 'shutdown -P now' > shutdown.sh; echo 'Password#1'|sudo -S sh 'shutdown.sh'"
 
   }],
 
+"provisioners": [{
+    "type": "shell",
+    "execute_command": "echo 'Password#1' | sudo -S -E '{{.Path}}'",
+    "script": "script.sh"
+}],
 
 "post-processors" : [{
               "type": "vsphere",
