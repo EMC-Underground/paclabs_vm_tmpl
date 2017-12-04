@@ -1,0 +1,79 @@
+{
+    "builders": [
+        {
+            "skip_export": false,
+            "format": "ovf",
+            "keep_registered": true,
+            "http_port_min": 8000,
+            "http_port_max": 8100,
+
+            "type": "vmware-iso",
+            "name": "packer-centos7",
+            "vm_name": "packer-centos7",
+            "vmdk_name": "packer-centos7",
+
+            "communicator": "ssh",
+            "remote_type": "esx5",
+            "remote_host": "{{user `packer_remote_host`}}",
+            "remote_datastore": "{{user `packer_remote_datastore`}}",
+            "remote_username": "{{user `packer_remote_username`}}",
+            "remote_password": "{{user `packer_remote_password`}}",
+
+            "ssh_username": "root",
+            "ssh_password": "password",
+            "ssh_wait_timeout": "30m",
+
+            "vnc_disable_password": true,
+
+            "iso_urls": [
+                "./iso/CentOS-7-x86_64-DVD-1708.iso",
+                "http://mirrors.ocf.berkeley.edu/centos/7/isos/x86_64/CentOS-7-x86_64-DVD-1708.iso"
+            ],
+            "iso_checksum_type": "none",
+            "iso_checksum": "ec7500d4b006702af6af023b1f8f1b890b6c7ee54400bb98cef968b883cd6546",
+
+            "headless": true,
+            "guest_os_type": "centos-64",
+            "disk_size": 81920,
+            "disk_type_id": "thin",
+            "floppy_files" : [
+                "./centos7/scripts/ks.cfg"
+            ],
+
+            "vmx_data": {
+                "memsize": "4096",
+                "numvcpus": "2",
+                "virtualhw.version": "11",
+
+                "ethernet0.networkName": "vSS Corp VLAN 33",
+                "ethernet0.virtualDev": "vmxnet3"
+            },
+
+            "tools_upload_flavor": "linux",
+
+            "http_directory": "centos7/scripts",
+            "boot_command": [
+                "<tab> text ks=hd:fd0:/ks.cfg<enter><wait>"
+            ],
+            "boot_wait": "10s",
+            "shutdown_command": "echo 'shutdown'|sudo -S /sbin/shutdown -P now"
+        }
+    ],
+    "post-processors": [
+    ],
+
+    "provisioners": [
+        {
+          "type": "file",
+          "source": "centos7/files/",
+          "destination": "/tmp/"
+        },
+
+        {
+            "type": "shell",
+            "execute_command": "echo 'password' | {{.Vars}} sudo -S -E bash '{{.Path}}'",
+            "script": "centos7/scripts/config_centos7.sh"
+        }
+    ]
+
+}

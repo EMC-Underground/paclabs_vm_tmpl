@@ -1,0 +1,14 @@
+# Copy this file to /etc/systemd/system/startup.service
+# systemctl enable startup.service
+# systemctl start startup.service
+[Unit]
+Description=Startup script service
+After=network.target network-online.target
+
+[Service]
+Type=simple
+ExecStart=/usr/local/bin/startup.sh
+TimeoutStartSec=0
+
+[Install]
+WantedBy=default.target

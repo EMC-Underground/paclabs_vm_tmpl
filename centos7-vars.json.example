@@ -1,0 +1,6 @@
+{
+    "packer_remote_host": "10.0.0.1",
+    "packer_remote_datastore": "ds1",
+    "packer_remote_username": "",
+    "packer_remote_password": ""
+}

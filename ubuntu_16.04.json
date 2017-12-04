@@ -10,11 +10,11 @@
     "ssh_password" : "{{user `ssh_password`}}",
     "headless" : true,
     "ssh_timeout" : "15m",
-    "guest_os_type" : "ubuntu-64", 
+    "guest_os_type" : "ubuntu-64",
     "floppy_files" : [
-        "./preseed/ubuntu.cfg"
+        "./ubuntu/ubuntu.cfg"
     ],
-    
+
     "boot_wait" : "10s",
      "boot_command": [
       "<enter><wait><f6><esc><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
@@ -22,7 +22,7 @@
       "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
       "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
       "/install/vmlinuz noapic ",
-      "preseed/file=/floppy/ubuntu.cfg ",
+      "ubuntu/file=/floppy/ubuntu.cfg ",
       "debian-installer=en_US auto locale=en_US kbd-chooser/method=us ",
       "hostname={{ .Name }} ",
       "fb=false debconf/frontend=noninteractive ",
@@ -48,11 +48,11 @@
     "ssh_password" : "{{user `ssh_password`}}",
     "headless" : true,
     "ssh_timeout" : "15m",
-    "guest_os_type" : "ubuntu_64", 
+    "guest_os_type" : "ubuntu_64",
     "floppy_files" : [
-        "./preseed/ubuntu.cfg"
+        "./ubuntu/ubuntu.cfg"
     ],
-    
+
     "boot_wait" : "10s",
      "boot_command": [
       "<enter><wait><f6><esc><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
@@ -60,7 +60,7 @@
       "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
       "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
       "/install/vmlinuz noapic ",
-      "preseed/file=/floppy/ubuntu.cfg ",
+      "ubuntu/file=/floppy/ubuntu.cfg ",
       "debian-installer=en_US auto locale=en_US kbd-chooser/method=us ",
       "hostname={{ .Name }} ",
       "fb=false debconf/frontend=noninteractive ",
@@ -76,7 +76,7 @@
 "provisioners": [{
     "type": "shell",
     "execute_command": "echo 'Password#1' | sudo -S -E '{{.Path}}'",
-    "script": "script.sh"
+    "script": "ubuntu/script.sh"
 }],
 
 "post-processors" : [{
