@@ -21,7 +21,8 @@ add-apt-repository \
     stable"
 apt update
 apt install -y docker-ce
-sed '/^ExecStart=/ s/$/ -H tcp://0.0.0.0:4243/' /lib/systemd/system/docker.service
-service docker restart
-curl -o /usr/local/bin/docker-compose -L "https://github.com/docker/compose/releases/download/1.11.2/docker-compose-$(uname -s)-$(uname -m)"
+sed -i '/ExecStart/c\ExecStart=/usr/bin/dockerd -H 0.0.0.0:2375 -H fd://' /lib/systemd/system/docker.service
+systemctl daemon-reload
+systemctl restart docker
+curl -o /usr/local/bin/docker-compose -L "https://github.com/docker/compose/releases/download/1.24.1/docker-compose-$(uname -s)-$(uname -m)"
 chmod +x /usr/local/bin/docker-compose

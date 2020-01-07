@@ -6,7 +6,7 @@
     "esxi_network" : "VM_6.0_DPortGroup",
     "esxi_cluster" : "cluster",
     "esxi_datacenter" : "Datacenter",
-    "vm_name" : "Ubuntu-17.10-Server-Tmpl",
+    "vm_name" : "Ubuntu-16.10-Server-Tmpl",
     "ssh_username" : "ubuntu",
     "ssh_password" : "Password#1"
 }
